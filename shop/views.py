@@ -1,7 +1,8 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
-from .models import Product, Category, ColorImages, Order
+from .models import Product, Category, ColorImages, Order, ProductImages
 from .serializers import ProductSerializer, CategorySerializer, ColorImagesSerializer, OrderCreateSerializer
+from .telegram_bot_utils import send_order_notification
 
 class ColorImagesListAPIView(generics.ListAPIView):
     queryset = ColorImages.objects.all()
@@ -34,3 +35,7 @@ class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderCreateSerializer
     permission_classes = [AllowAny]
+    
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        send_order_notification(instance)

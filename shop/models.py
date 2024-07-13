@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Discounts(models.Model):
     amount_in_percent = models.PositiveIntegerField(default=0, verbose_name="chegirma foizi")
@@ -94,3 +94,14 @@ class OrderItem(models.Model):
         return self.product.name
     
 
+class ChatId(models.Model):
+    chat_id = models.CharField(max_length=250)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="chat_ids", blank=True, null=True)
+    
+    class Meta:
+        verbose_name = "ChatId"
+        verbose_name_plural = "ChatId"
+        
+    def __str__(self):
+        return self.chat_id + "-" + self.owner.username
+    

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     "rest_framework"
 ]
 
@@ -51,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -123,7 +123,14 @@ USE_I18N = True
 
 USE_TZ = True
 
-APPEND_SLASH = False
+
+
+
+
+TELEGRAM_BOT_TOKEN = '7099876754:AAFYBEUsq6BlQL3N5G-1QPzPQVl1gNeBg-M'
+TELEGRAM_CHAT_ID = "1157580853"
+BASE_URL = 'http://127.0.0.1:8001/'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

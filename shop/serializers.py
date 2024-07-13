@@ -38,7 +38,20 @@ class ProductSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = ('product', 'quantity', 'color_image', "amount")
+        fields = ('product', 'quantity')
+
+    def validate(self, data):
+        product = data['product']
+        quantity = data['quantity']
+        if product.discount:
+            discount = product.discount.amount_in_percent
+            discounted_price = float(product.price) * (1 - (discount / 100))
+        else:
+            discounted_price = float(product.price)
+        data['amount'] = discounted_price * quantity
+        return data
+    
+
     
 
 class OrderCreateSerializer(serializers.ModelSerializer):

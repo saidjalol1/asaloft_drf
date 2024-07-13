@@ -85,7 +85,7 @@ class OrderItem(models.Model):
     amount = models.PositiveIntegerField(default=0)
     
     
-    color = models.ForeignKey(ColorImages, on_delete=models.CASCADE, related_name="item")
+    color = models.ForeignKey(ColorImages, on_delete=models.CASCADE, related_name="item", blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="orders")
     order = models.ForeignKey(Order, on_delete=models.CASCADE,related_name= "items")
     

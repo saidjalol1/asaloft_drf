@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.permissions import AllowAny
 from .models import Product, Category, ColorImages, Order
 from .serializers import ProductSerializer, CategorySerializer, ColorImagesSerializer, OrderCreateSerializer
 
@@ -32,3 +33,4 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderCreateSerializer
+    permission_classes = [AllowAny]

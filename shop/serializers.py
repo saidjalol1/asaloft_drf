@@ -1,13 +1,6 @@
 from rest_framework import serializers
 from .models import Discounts, Category, ProductImages, Product, ColorImages, OrderItem, Order
-from django.utils.translation import get_language
 
-
-# class TranslatableSerializerMixin:
-#     def get_translated_field(self, obj, field):
-#         language = get_language()
-#         translated_field_name = f"{field}_{language}"
-#         return getattr(obj, translated_field_name, getattr(obj, field))
 
 
 class DiscountsSerializer(serializers.ModelSerializer):
@@ -17,14 +10,10 @@ class DiscountsSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
-
     class Meta:
         model = Category
-        fields = ['id', 'name']
+        fields = ['id', 'name', "name_ru", "name_en", "name_uz"]
 
-    def get_name(self, obj):
-        return self.get_translated_field(obj, 'name')
 
 
 class ProductImagesSerializer(serializers.ModelSerializer):
@@ -43,14 +32,9 @@ class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     discount = DiscountsSerializer()
     images = ProductImagesSerializer(many=True)
-    name = serializers.SerializerMethodField()
-    frame = serializers.SerializerMethodField()
-    description = serializers.SerializerMethodField()
-    material = serializers.SerializerMethodField()
-    paint_type = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = ['id', 'name', 'frame', 'description', 'material', 'paint_type',"dimensions","price", "category", "discount","images"]
+        fields = ['id', 'name', "name_uz", "name_en", "name_ru", 'frame', "frame_en", "frame_uz", "frame_ru",'description', "description_en","description_ru","description_uz",'material', "material_en","material_uz","material_ru",'paint_type',"paint_type_ru","paint_type_uz","paint_type_en","dimensions","price", "category", "discount","images"]
 
 
 
